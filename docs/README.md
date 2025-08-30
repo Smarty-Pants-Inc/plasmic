@@ -1,15 +1,17 @@
 Plasmic Docs Snapshot
 
-This folder contains a snapshot of Plasmic docs under `/learn/`, fetched via sitemap and saved as raw HTML for each page. Use the scraper to refresh:
+This submodule folder contains a snapshot of Plasmic docs under `/learn/`, saved as raw HTML plus minimal metadata.
 
-- Fetch: `python scripts/scrape_plasmic_docs.py --out docs/plasmic`
-- Dry run: `python scripts/scrape_plasmic_docs.py --out docs/plasmic --dry-run`
+How to refresh (from parent repo):
+- Scrape: `python scripts/scrape_plasmic_docs.py --out docs/plasmic` (stages output under parent `docs/plasmic`)
+- Import: `scripts/update_plasmic_reference.sh` (copies into `external/plasmic/docs`, writes MANIFEST, commits)
+  - To push the submodule commit to the fork automatically: `PLASMIC_PUSH=1 scripts/update_plasmic_reference.sh`
 
-Outputs:
-- `docs/plasmic/MANIFEST.json` – list of discovered URLs and counts
-- `docs/plasmic/**/index.html` – saved HTML pages, mirroring path structure
-- `docs/plasmic/**/_source.json` – minimal metadata for the nearest folder
+On-disk layout (within this folder):
+- `docs/MANIFEST.json` – list of discovered URLs and counts
+- `docs/**/index.html` – saved HTML pages, mirroring path structure
+- `docs/**/_source.json` – minimal metadata for the nearest folder
 
 Notes:
-- Only HTML is fetched (no assets). Suitable for indexing or later conversion to Markdown.
-- Respects `robots.txt` and relies on the public sitemap for stable discovery.
+- Only HTML is fetched (no assets). Suitable for indexing or conversion to Markdown later.
+- Scraper respects `robots.txt` and relies on the public sitemap for stable discovery.
